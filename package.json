@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.15",
     "mongoose-unique-validator": "^2.0.3"
+  },
+  "devDependencies": {
+    "dayjs": "^1.10.6",
+    "pino": "^6.13.0"
   }
 }

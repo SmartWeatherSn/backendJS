@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const stuffRoutes = require("./src/routes/stuff");
 const userRoutes = require("./src/routes/user");
-const {MongooseService} = require("./src/utilities/services/moongose.service");
+const { MongooseService } = require('./src/utilities/services/moongose.service')
+
 
 MongooseService.connectWithRetry();
 
