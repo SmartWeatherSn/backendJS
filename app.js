@@ -1,15 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const cred = require("./sec");
-const stuffRoutes = require("./routes/stuff");
-const userRoutes = require("./routes/user");
+const stuffRoutes = require("./src/routes/stuff");
+const userRoutes = require("./src/routes/user");
+const {MongooseService} = require("./src/utilities/services/moongose.service");
 
-mongoose.connect("mongodb+srv://"+cred.credentiels.uName+":"+cred.credentiels.uPasswd+"@cluster0.ystg4.mongodb.net/test?retryWrites=true&w=majority", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB connection successful !'))
-    .catch(() => console.log("MongoDB connection failed !"));
+MongooseService.connectWithRetry();
 
 const app = express();
 
