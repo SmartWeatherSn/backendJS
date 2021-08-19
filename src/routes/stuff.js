@@ -4,14 +4,14 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-router.post('/', auth, stuffCtrl.createThing);
+router.post('/device/', stuffCtrl.createThing);
 
-router.put('/:id', auth, stuffCtrl.modifyThing);
+router.put('/device/:id', auth, stuffCtrl.modifyThing);
 
-router.delete('/:id', auth, stuffCtrl.deleteThing);
+router.delete('/device/:id', auth, stuffCtrl.deleteThing);
 
-router.get('/:id', auth, stuffCtrl.getOneThing);
+router.get('/device/:id', auth, stuffCtrl.getOneThing);
 
-router.get('/', auth, stuffCtrl.getAllThings);
+router.get('/device/', auth, stuffCtrl.getAllThings);
 
 module.exports = router;
