@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const stuffRoutes = require("./src/routes/stuff");
+const stuffRoutes = require("./src/routes/device");
 const userRoutes = require("./src/routes/user");
 const { MongooseService } = require('./src/utilities/services/moongose.service')
 
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use('/api/stuff', stuffRoutes);
+app.use('/api/device', stuffRoutes);
 app.use('/api/auth', userRoutes)
 
 module.exports = app;
