@@ -15,7 +15,7 @@ exports.signup = (req, res, next) => {
 };
 
 exports.loginByEmail = (req, res, next) => {
-    User.findOne({email: req.body.email})
+    User.findOne({userName: req.body.userName})
         .then(user => {
             if(!user) {
                 return res.status(401).json({error: 'User not found'});
@@ -25,6 +25,8 @@ exports.loginByEmail = (req, res, next) => {
                     if(!valid) {
                         return res.status(401).json({error: 'Bad password'});
                     }
+                    user.password = undefined;
+                    console.log(user)
                     res.status(200).json({
                         userId: user._id,
                         token: jwt.sign(
