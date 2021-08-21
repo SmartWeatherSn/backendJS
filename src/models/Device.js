@@ -15,6 +15,9 @@ const deviceSchema = mongoose.Schema({
     chipid: {type: String, required: true},
     sensor: {type: sensor},
     userId: {type: String, default: null}
+},
+{
+    timestamps: { createdAt: true }
 });
 
 module.exports = mongoose.model('Device', deviceSchema);
