@@ -6,10 +6,12 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
             const user = new User(
-                userName: req.body.userName,
-                email: req.body.email,
-                password: hash,
-                telephone: req.body.telephone
+                {
+                    userName: req.body.userName,
+                    email: req.body.email,
+                    password: hash,
+                    telephone: req.body.telephone
+                }
                 );
             user.save()
                 .then(() => res.status(201).json({message: 'User created !'}))
