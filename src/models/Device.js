@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const uniqueValidator = require('mongoose-unique-validator');
 
 const sensor = mongoose.Schema({
     humidity: {type: Number, default: 0},
@@ -10,15 +11,17 @@ const sensor = mongoose.Schema({
 })
 
 const deviceSchema = mongoose.Schema({
-    ip: {type: String, required: true},
+    chipid: {type: String, unique: true, required: true},
     description: {type: String, default: ''},
+    name: {type: String, default: ''},
     rssi: {type: String, required: true},
-    chipid: {type: String, required: true, unique: true},
     sensor: {type: sensor},
-    userId: {type: String, default: null, index: { unique: true, sparse: true }}
+    userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', index: { unique: true, sparse: true }}
 },
 {
     timestamps: { createdAt: true }
 });
+
+deviceSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Device', deviceSchema);
