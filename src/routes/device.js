@@ -15,13 +15,14 @@ router.post('/', deviceCtrl.createDevice);
 
 /**
  * This route is used to link user with his/her new device
- * A json data format must be sent as request body e.g {userId: 'IdOfUser', chipid: 'MainIdOfTheDevice}
+ * A json data format must be sent as request body e.g below
+ * {userId: 'IdOfUser', chipid: 'MainIdOfTheDevice', otherInfo: 'informations'}
  * firstly: we check if the user exist, before processing
  * Only dev team must use it
  * For any information about device, refer to /src/models/Device.js
  * Please, respect the data types
  */
-router.post('/check-chipid/', verifyUser, deviceCtrl.findChipId);
+router.post('/check-chipid/', auth, verifyUser, deviceCtrl.findChipId);
 
 /**
  * This route is used to update device information in mobile side
