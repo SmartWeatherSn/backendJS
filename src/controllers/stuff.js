@@ -11,7 +11,6 @@ exports.createDevice = (req, res, next) => {
 };
 
 exports.findChipId = (req, res, next) => {
-    let listDevice = [];
     Device.updateOne({$and: [{chipid: req.body.chipid}, {userId: null}]}, {
         userId: req.body.userId,
         name: req.body.name,
