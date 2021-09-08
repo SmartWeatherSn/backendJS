@@ -56,7 +56,7 @@ router.put('/sensor/:chipid', deviceCtrl.modifySensorsValue);
  * For any information about device, refer to /src/models/Device.js
  * Please, respect the data types
  */
-router.get('/user/list', auth, verifyUser, deviceCtrl.getUserDevices);
+router.get('/user/list/:userId', auth, verifyUser, deviceCtrl.getUserDevices);
 
 router.get('/user/:chipid', auth, deviceCtrl.getOneDevice);
 
