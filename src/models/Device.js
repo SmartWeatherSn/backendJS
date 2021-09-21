@@ -6,7 +6,9 @@ const sensor = mongoose.Schema({
     temperature: {type: Number, default: 0},
     cga: {type: Number, default: 0},
     pm: {type: Number, default: 0},
-},{
+},
+  { _id: false }
+  ,{
     timestamps: { createdAt: true }
 })
 
@@ -16,6 +18,7 @@ const deviceSchema = mongoose.Schema({
     name: {type: String, default: ''},
     rssi: {type: String, required: true},
     sensor: {type: sensor},
+    deletedUser: {type: mongoose.Schema.Types.ObjectId, ref: 'User', index: { unique: true, sparse: true }},
     userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', index: { unique: true, sparse: true }}
 },
 {

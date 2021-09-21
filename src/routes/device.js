@@ -24,7 +24,7 @@ router.post('/', deviceCtrl.createDevice);
  */
 router.post('/check-chipid/', auth, verifyUser, deviceCtrl.findChipId);
 
-/**
+/** Modifier les information d'un appareil
  * This route is used to update device information in mobile side
  * A json data format must be sent as request body e.g {propertyName: 'ChangedValue'}
  * deviceId must be sent as request params
@@ -33,7 +33,7 @@ router.post('/check-chipid/', auth, verifyUser, deviceCtrl.findChipId);
  * For any information about device, refer to /src/models/Device.js
  * Please, respect the data types
  */
-router.put('/:id', auth, deviceCtrl.modifyDevice);
+router.put('/:id', auth, verifyUser, deviceCtrl.modifyDevice);
 
 /**
  * This route is used to update sensors values
@@ -62,6 +62,14 @@ router.get('/user/:chipid', auth, deviceCtrl.getOneDevice);
 
 router.get('/', auth, deviceCtrl.getAllDevices);
 
-router.delete('/:id', auth, deviceCtrl.deleteDevice);
+/** Supprimer un appareil
+ * This route is used to delete a user device (mobile side)
+ * firstly: user have to be authenticated
+ * Just send deviceId as request params
+ * Only dev team must use it and only changeable properties can be change
+ * For any information about device, refer to /src/models/Device.js
+ * Please, respect the data types
+ */
+router.delete('/:id', auth, verifyUser, deviceCtrl.deleteDevice);
 
 module.exports = router;

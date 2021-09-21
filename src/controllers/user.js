@@ -52,7 +52,7 @@ exports.loginByEmail = (req, res, next) => {
 };
 
 exports.userExist = (req, res, next) => {
-    const userId = (req.body.userId) ? req.body.userId : (req.params.userId)? req.params.userId : '';
+    const userId = (req.body.userId) ? req.body.userId : (req.params.userId)? req.params.userId : (req.userId)? req.userId : '';
     User.findById(userId)
         .then(user => {
             if(!user) return res.status(406).json({message: `user with _id: ${userId} doesn't exist`});
