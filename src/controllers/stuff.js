@@ -36,7 +36,6 @@ exports.modifySensorsValue = (req, res) => {
 };
 
 exports.deleteDevice = (req, res) => {
-    console.log('test controller');
     Device.findOne({_id: req.params.id})
         .then(thing => {
             if (thing.userId.toString() !== req.userId.toString()) {
