@@ -18,8 +18,8 @@ const deviceSchema = mongoose.Schema({
     name: {type: String, default: ''},
     rssi: {type: String, required: true},
     sensor: {type: sensor},
-    deletedUser: {type: String, ref: 'User', index: { unique: true, sparse: true }},
-    userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', index: { unique: true, sparse: true }}
+    deletedUser: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 },
 {
     timestamps: { createdAt: true }
