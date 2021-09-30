@@ -38,12 +38,13 @@ exports.modifySensorsValue = (req, res) => {
 exports.deleteDevice = (req, res) => {
     Device.findOne({_id: req.params.id})
         .then(thing => {
+            console.log(thing)
             if (thing.userId.toString() !== req.userId.toString()) {
                 return res.status(400).json({message: 'Unauthorized'});
             }
             Device.updateOne({_id: req.params.id}, {userId: null, deletedUser: thing.userId})
                 .then(() => res.status(200).json({message: "Deleted"}))
-                .catch(error => res.status(400).json({error}));
+                .catch(error => res.status(400).json({...error,message: "error"}));
         })
         .catch(error => res.status(404).json({error}));
 };
