@@ -38,7 +38,6 @@ exports.modifySensorsValue = (req, res) => {
 exports.deleteDevice = (req, res) => {
     Device.findOne({_id: req.params.id})
         .then(thing => {
-            console.log(thing)
             if (thing.userId.toString() !== req.userId.toString()) {
                 return res.status(400).json({message: 'Unauthorized'});
             }
