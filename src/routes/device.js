@@ -1,5 +1,5 @@
 const express = require('express');
-const deviceCtrl = require('../controllers/stuff');
+const deviceCtrl = require('../controllers/device');
 const auth = require('../middleware/auth');
 const verifyUser = require('../controllers/user').userExist;
 

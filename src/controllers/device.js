@@ -16,7 +16,10 @@ exports.findChipId = (req, res) => {
         name: req.body.name,
         description: req.body.description,
     }, {omitUndefined: true, new: true})
-        .then(() => {
+        .then((device) => {
+            if((!device) || (device.chipid !== req.body.chipid)) {
+                return res.status(201).json({code: "NoDeviceFound"})
+            }
             return res.status(201).json({message: `Device with chipid: ${req.body.chipid} linked to userId: ${req.body.userId} successfully`})
         })
         .catch(error => res.status(400).json({error}))
