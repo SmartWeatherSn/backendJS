@@ -6,10 +6,13 @@ const verifyUser = require('../controllers/user').userExist;
 const router = express.Router();
 
 /**
- * This route is used to create a Device only iot team must use it
+ * Only iot team must use this
+ * This route is used to create a Device 
  * Device main information must be sent in json format as request body
  * For any information about device, refer to /src/models/Device.js
  * Please, respect the data types
+ * Example request body (required field) : {chipid: value, rssi: value}
+ * optional field {sensor: {}}
  */
 router.post('/', deviceCtrl.createDevice);
 
