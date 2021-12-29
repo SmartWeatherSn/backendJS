@@ -1,5 +1,7 @@
 const http = require('http');
 const app = require('./app');
+const { Server } = require("socket.io");
+const io = new Server(server);
 const config = require('./src/utilities/config/env.config')
 
 const normalizePort = val => {
@@ -37,6 +39,16 @@ const errorHandler = error => {
 };
 
 const server = http.createServer(app);
+
+io.on('connection', (userSocket) => {
+    console.log('a user connected');
+    userSocket.on("send_sensor", (data) => {
+        userSocket.broadcast.emit("receive_sensor", data)
+    })
+    userSocket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
 
 server.on('error', errorHandler);
 server.on('listening', () => {

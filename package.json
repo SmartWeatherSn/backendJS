@@ -20,7 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.8",
     "mongoose-unique-validator": "^2.0.3",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "socket.io": "^4.3.0"
   },
   "devDependencies": {
     "dayjs": "^1.10.6",

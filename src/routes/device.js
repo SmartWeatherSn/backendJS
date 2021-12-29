@@ -6,10 +6,13 @@ const verifyUser = require('../controllers/user').userExist;
 const router = express.Router();
 
 /**
- * This route is used to create a Device only iot team must use it
+ * Only iot team must use this
+ * This route is used to create a Device 
  * Device main information must be sent in json format as request body
  * For any information about device, refer to /src/models/Device.js
  * Please, respect the data types
+ * Example request body (required field) : {chipid: value, rssi: value}
+ * optional field {sensor: {}}
  */
 router.post('/', deviceCtrl.createDevice);
 
@@ -18,9 +21,9 @@ router.post('/', deviceCtrl.createDevice);
  * A json data format must be sent as request body e.g below
  * {userId: 'IdOfUser', chipid: 'MainIdOfTheDevice', otherInfo: 'informations'}
  * firstly: we check if the user exist, before processing
- * Only dev team must use it
  * For any information about device, refer to /src/models/Device.js
  * Please, respect the data types
+ * Only dev team must use it
  */
 router.post('/check-chipid/', auth, verifyUser, deviceCtrl.findChipId);
 
@@ -36,12 +39,12 @@ router.post('/check-chipid/', auth, verifyUser, deviceCtrl.findChipId);
 router.put('/:id', auth, verifyUser, deviceCtrl.modifyDevice);
 
 /**
+ * Only iot team must use this
  * This route is used to update sensors values
  * A json data format must be sent as request body e.g below
  * {sensor: {humidity: intValue, temperature: intValue, cga: intValue, pm: intValue}}
  * chipid must be sent as request params
  * firstly: user have to be authenticated
- * Only iot team must use it
  * For any information about device, refer to /src/models/Device.js
  * Please, respect the data types
  */
