@@ -1,8 +1,7 @@
-const http = require('http');
+const { createServer } = require('http');
 const app = require('./app');
-const { Server } = require("socket.io");
-const io = new Server(server);
 const config = require('./src/utilities/config/env.config')
+const jwt = require('jsonwebtoken');
 
 const normalizePort = val => {
     const port = parseInt(val, 10);
@@ -37,18 +36,50 @@ const errorHandler = error => {
             throw error;
     }
 };
+const server = createServer(app);
 
-const server = http.createServer(app);
+const io = require("socket.io")(server, {
+    allowEIO3: true,
+    cors: {
+        origin: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETEs'],
+        credentials: true
+    }
+});
 
-io.on('connection', (userSocket) => {
-    console.log('a user connected');
-    userSocket.on("send_sensor", (data) => {
-        userSocket.broadcast.emit("receive_sensor", data)
-    })
-    userSocket.on('disconnect', () => {
-        console.log('user disconnected');
+io.use(async (socket, next) => {
+    try {
+      const token = socket.handshake.query.token;
+      const payload = await jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+      socket.userId = payload.userId;
+      next();
+    } catch (err) {}
+  });
+
+io.on('connection', socket => {
+
+    console.log("Connected: " + socket.userId);
+    /* console.log(socket); */
+    socket.on('disconnect', () => {
+        console.log("Disconnected: " + socket.userId);
+    });
+
+    socket.on("joinRoom", ({
+        roomId
+    }) => {
+        socket.join(roomId);
+        console.log("A user joined chatroom: " + roomId);
+    });
+
+    socket.on("leaveRoom", ({
+        roomId
+    }) => {
+        socket.leave(roomId);
+        console.log("A user left chatroom: " + roomId);
     });
 });
+
+app.set("io", io);
 
 server.on('error', errorHandler);
 server.on('listening', () => {
